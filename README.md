@@ -7,6 +7,7 @@ It's developed in R and incorporates linear and quadratic regression, data remov
 ___
 ### Data
 *NYC Open Data*: A free public data source published by NYC agencies
+
 *InsideAirbnb*: An independent and non-commercial toolset of Airbnb data
 ___
 ### Methodology:
