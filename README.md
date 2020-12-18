@@ -1,6 +1,6 @@
 <a name="TOP"></a>
 
-# Is Airbnb Good for Housing Prices?
+# Is Airbnb Good for Housing Value?
 
 ### Overview
 This [Report](https://github.com/eng-jonathan/Airbnb_on_HousingValue/blob/main/Report/Airbnb_on_HousingValue.pdf) aims solve the controversy of encouraging Airbnb's in NYC.
