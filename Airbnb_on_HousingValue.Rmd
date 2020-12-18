@@ -1,0 +1,296 @@
+---
+title: "Airbnb on Housing Values"
+author: "Jonathan Eng"
+output: pdf_document
+date: " "
+---
+
+```{r, warning = FALSE, message = FALSE}
+library(dplyr)
+library(magrittr)
+library(tidyverse)
+library(plyr)
+library(tibble)
+library(stargazer)
+
+```
+
+```{r, warning = FALSE}
+#import AirHomeData
+AirHomeData2 = read.csv(file.path("cleaned_airbnb_home_data.csv"), header = TRUE)
+```
+
+```{r, WARNING = FALSE}
+AirHomeData = AirHomeData2
+#Remove all observations without the Y components "SALE.PRICE"
+min_sale_price = 1
+AirHomeData = AirHomeData[!is.na(AirHomeData$SALE.PRICE), ]
+AirHomeData = AirHomeData[!(AirHomeData$SALE.PRICE < min_sale_price), ]
+
+```
+
+```{r}
+#Remove Columns that are "Junk" or all NA'
+AirHomeData %<>%
+  select(-c(ï..BOROUGH, BLOCK, LOT, EASE.MENT, ADDRESS, APARTMENT.NUMBER, ZIP.CODE, TOTAL.UNITS, BUILDING.CLASS.AT.PRESENT, 
+             BUILDING.CLASS.AT.TIME.OF.SALE, COMMERCIAL.UNITS,TAX.CLASS.AT.TIME.OF.SALE, LAND.SQUARE.FEET, 
+             Airbnb.Amount, HOME.AMOUNT, 
+             ))
+
+AirHomeData %<>%
+  mutate(NEIGHBORHOOD = ifelse(NEIGHBORHOOD == 0, NA, NEIGHBORHOOD)) %<>%
+  mutate(BUILDING.CLASS.CATEGORY = ifelse(BUILDING.CLASS.CATEGORY == 0, NA, BUILDING.CLASS.CATEGORY)) %<>%
+  mutate(TAX.CLASS.AT.PRESENT = ifelse(TAX.CLASS.AT.PRESENT == 0, NA, TAX.CLASS.AT.PRESENT)) %<>%
+  mutate(YEAR.BUILT = ifelse(YEAR.BUILT == 0, NA, YEAR.BUILT)) %<>%
+
+  mutate(GROSS.SQUARE.FEET = ifelse(GROSS.SQUARE.FEET == 0, NA, GROSS.SQUARE.FEET)) %<>%
+  mutate(RESIDENTIAL.UNITS = ifelse(RESIDENTIAL.UNITS == 0, NA, RESIDENTIAL.UNITS)) %<>%
+  mutate(YEAR.BUILT = ifelse(YEAR.BUILT == 0, NA, YEAR.BUILT)) %<>%
+  
+  mutate(PERCENT.AIRBNB = PERCENT.AIRBNB*100) 
+```
+
+```{r}
+AirHomeData %<>%
+  #Removes Extra Characters such as Dollar Signs ($) or Commas (,)
+  mutate(SALE.PRICE = gsub("[^0-9.-]", "", SALE.PRICE)) %<>%
+  mutate(YEAR.BUILT = gsub("[^0-9.-]", "", YEAR.BUILT)) %<>%
+  mutate(RESIDENTIAL.UNITS = gsub("[^0-9.-]", "", RESIDENTIAL.UNITS)) %<>%
+  mutate(GROSS.SQUARE.FEET = gsub("[^0-9.-]", "", GROSS.SQUARE.FEET)) %<>%
+
+  #Log Sale Price and GrossSquareFeet
+  mutate(SALE.PRICE = log(as.double(SALE.PRICE))) %<>%
+  mutate(GROSS.SQUARE.FEET = log(as.integer(GROSS.SQUARE.FEET))) %<>%
+  
+  mutate(YEAR.BUILT = as.factor(YEAR.BUILT)) %<>%
+  mutate(RESIDENTIAL.UNITS = as.integer(RESIDENTIAL.UNITS)) %<>%
+
+  mutate(NEIGHBORHOOD = as.factor(NEIGHBORHOOD)) %<>%
+  mutate(BUILDING.CLASS.CATEGORY = as.factor(BUILDING.CLASS.CATEGORY)) %<>%
+  mutate(TAX.CLASS.AT.PRESENT = as.factor(TAX.CLASS.AT.PRESENT)) %<>%
+
+  mutate(SALE.DATE = as.integer(substr(SALE.DATE, nchar(SALE.DATE)-3, nchar(SALE.DATE)))) %<>%
+
+  dplyr::rename(SALE.YEAR = SALE.DATE) %<>%
+  dplyr::rename(LOG_GROSS.SQUARE.FEET = GROSS.SQUARE.FEET) %<>%
+  dplyr::rename(LOG_SALE.PRICE = SALE.PRICE) %<>%
+  dplyr::rename(TAX_CLASS = TAX.CLASS.AT.PRESENT) %<>%
+  
+  mutate(SALE.YEAR = as.factor(SALE.YEAR)) 
+
+```
+
+```{r}
+AirHomeData$NEIGHBORHOOD = droplevels(AirHomeData$NEIGHBORHOOD)  
+AirHomeData$BUILDING.CLASS.CATEGORY = droplevels(AirHomeData$BUILDING.CLASS.CATEGORY)
+AirHomeData$TAX_CLASS = droplevels(AirHomeData$TAX_CLASS)
+AirHomeData$YEAR.BUILT = droplevels(AirHomeData$YEAR.BUILT)
+AirHomeData$SALE.YEAR = droplevels(AirHomeData$SALE.YEAR)
+```
+
+```{r}
+#Removes Outliers using IQR Method
+AirHomeData = na.omit(AirHomeData)
+temp2 = AirHomeData
+
+Q1 = quantile(AirHomeData$LOG_SALE.PRICE, prob = .25)
+Q3 = quantile(AirHomeData$LOG_SALE.PRICE, prob = .75)
+LowerBound = Q1 - 1.5*IQR(AirHomeData$LOG_SALE.PRICE)
+UpperBound = Q3 + 1.5*IQR(AirHomeData$LOG_SALE.PRICE)
+
+AirHomeData = AirHomeData[AirHomeData$LOG_SALE.PRICE >= LowerBound, ]
+AirHomeData = AirHomeData[AirHomeData$LOG_SALE.PRICE <= UpperBound, ]
+```
+
+```{r}
+#MIN MAX MEAN Summaries
+cat("IQR METHOD: \n\n")
+cat("Minimum Values: \n")
+apply(AirHomeData,2,min)
+
+cat("Maximum Values: \n")
+apply(AirHomeData,2,max)
+
+cat("\nAverage RESIDENTIAL.UNITS: ", mean(AirHomeData$RESIDENTIAL.UNITS))
+cat("\nAverage LOG_GROSS.SQUARE.FEET: ", mean(AirHomeData$LOG_GROSS.SQUARE.FEET))
+cat("\nAverage Sale.Price: ", mean(AirHomeData$LOG_SALE.PRICE))
+cat("\nAverage Percent.Airbnb: ", mean(AirHomeData$PERCENT.AIRBNB))
+```
+
+```{r}
+# Clean Factors without *n* many Values
+n = 500
+AirHomeData %<>%
+    group_by(BUILDING.CLASS.CATEGORY) %<>%
+    filter(n() >= n)
+ AirHomeData %<>%
+     group_by(NEIGHBORHOOD) %<>%
+     filter(n() >= n)
+AirHomeData %<>%
+    group_by(TAX_CLASS) %<>%
+    filter(n() >= n)
+AirHomeData %<>%
+    group_by(YEAR.BUILT) %<>%
+    filter(n() >= n)
+```
+
+
+```{r}
+AirHomeData$NEIGHBORHOOD = droplevels(AirHomeData$NEIGHBORHOOD)  
+AirHomeData$BUILDING.CLASS.CATEGORY = droplevels(AirHomeData$BUILDING.CLASS.CATEGORY)
+AirHomeData$TAX_CLASS = droplevels(AirHomeData$TAX_CLASS)
+AirHomeData$YEAR.BUILT = droplevels(AirHomeData$YEAR.BUILT)
+AirHomeData$SALE.YEAR = droplevels(AirHomeData$SALE.YEAR)
+```
+
+```{r, WARNING = FALSE}
+AirHomeDataTemp = model.matrix( ~ ., data=AirHomeData, contrasts.arg = 
+    lapply(data.frame(AirHomeData[,sapply(data.frame(AirHomeData), is.factor)]), contrasts, contrasts = FALSE))
+
+AirHomeDataTemp2 = data.frame(AirHomeDataTemp)
+
+#INTERCEPTS:
+AirHomeDataTemp2 %<>%
+  select(-c( X.Intercept.,
+             NEIGHBORHOODWOODHAVEN, 
+             BUILDING.CLASS.CATEGORY07..RENTALS...WALKUP.APARTMENTS,
+             YEAR.BUILT1899,
+             TAX_CLASS2B,
+             SALE.YEAR2013,
+             ))
+```
+
+
+```{r}
+#Y = Response Variable; X = Features
+y = AirHomeDataTemp2$LOG_SALE.PRICE
+X = AirHomeDataTemp2 %>%
+  select(-c(LOG_SALE.PRICE))
+```
+
+
+```{r}
+#Set New Data
+newdata = cbind(X, y)
+newdata %<>%
+  dplyr::rename(LOG_SALE.PRICE = y) %<>%
+  select(LOG_SALE.PRICE,
+         everything())
+
+X = newdata[ ,2:ncol(newdata)]
+y = newdata[ ,1]
+```
+
+```{r, warning = FALSE}
+n = nrow(newdata)
+K = n/100
+
+test_indices = sample(1 : n, size = n * 1 / K)
+master_train_indices = setdiff(1 : n, test_indices)
+select_indices = sample(master_train_indices, size = n * 1 / K)
+train_indices = setdiff(master_train_indices, select_indices)
+rm(master_train_indices)
+
+pacman::p_load(testthat)
+expect_equal(1 : n, sort(c(train_indices, select_indices, test_indices)))
+
+newdata_train = newdata[train_indices, ]
+newdata_select = newdata[select_indices, ]
+newdata_test = newdata[test_indices, ]
+rm(test_indices, select_indices, train_indices)
+
+mod1 = lm(LOG_SALE.PRICE ~ ., newdata_train) 
+mod2 = lm(LOG_SALE.PRICE ~ poly(PERCENT.AIRBNB, 2) + poly(LOG_GROSS.SQUARE.FEET, 2) + poly(RESIDENTIAL.UNITS,2 ) + ., newdata_train)
+mod3 = lm(LOG_SALE.PRICE ~ poly(PERCENT.AIRBNB, 3) + poly(LOG_GROSS.SQUARE.FEET, 3) + poly(RESIDENTIAL.UNITS,3 ) + ., newdata_train)
+y_select = newdata$LOG_SALE.PRICE #True Price
+
+yhat_select_mod1 = predict(mod1, newdata_select)
+yhat_select_mod2 = predict(mod2, newdata_select)
+yhat_select_mod3 = predict(mod3, newdata_select)
+
+s_e_s = c(sd(yhat_select_mod1 - y_select), sd(yhat_select_mod2 - y_select), sd(yhat_select_mod3 - y_select))
+names(s_e_s) = paste("mod", 1:3, sep = "")
+s_e_s
+
+names(which.min(s_e_s))
+
+yhat_test_mod1 = predict(mod1, newdata_test)
+y_test = newdata_test$LOG_SALE.PRICE #True Price
+sd(yhat_test_mod1 - y_test)
+
+mod_final = lm(LOG_SALE.PRICE ~ . , newdata)
+
+summary(mod_final)
+
+rss = c(crossprod(mod_final$residuals))
+mse = rss / length(mod_final$residuals)
+rmse_kfolds = sqrt(mse)
+
+cat("\nLinear Regression RMSE: ", rmse_kfolds)
+
+```
+
+
+```{r, warning = FALSE}
+#Values in the Intercept:
+  #NEIGHBORHOOD.ARDEN.HEIGHTS
+  #BUILDING.CLASS.CATEGORY01.ONE.FAMILY.DWELLINGS 
+  #YEAR.BUILT1899,
+  #TAX.CLASS.AT.PRESENT1,
+  #SALE.YEAR2013,
+
+nvar = 2
+model1 = lm(LOG_SALE.PRICE ~ PERCENT.AIRBNB, data = AirHomeData) #Short Term Rental Concentration
+model1$coefficients = model1$coefficients[2:nvar]
+
+nvar = 4
+model2 = lm(LOG_SALE.PRICE ~ PERCENT.AIRBNB + #Short Term Rental Concentration
+              LOG_GROSS.SQUARE.FEET + RESIDENTIAL.UNITS,  #Building/Home Size/Units
+              data = AirHomeData)
+model2$coefficients = model2$coefficients[2:nvar]
+
+#Multilevel Factors Introduced 
+nvar = 10
+model3 = lm(LOG_SALE.PRICE ~ PERCENT.AIRBNB + #Short Term Rental Concentration
+              LOG_GROSS.SQUARE.FEET + RESIDENTIAL.UNITS +  #Building/Home Size/Units
+              TAX_CLASS + BUILDING.CLASS.CATEGORY, #Building/Home Features
+            data = AirHomeData)
+model3$coefficients = model3$coefficients[2:nvar]
+
+nvar = 30
+model4 = lm(LOG_SALE.PRICE ~ PERCENT.AIRBNB + #Short Term Rental Concentration
+              LOG_GROSS.SQUARE.FEET + RESIDENTIAL.UNITS +  #Building/Home Size/Units
+              TAX_CLASS + BUILDING.CLASS.CATEGORY + #Building/Home Features
+              YEAR.BUILT, #Year Built
+            data = AirHomeData)
+model4$coefficients = model4$coefficients[2:nvar]
+
+nvar = 32
+model5 = lm(LOG_SALE.PRICE ~ PERCENT.AIRBNB + #Short Term REntal Concentration
+              LOG_GROSS.SQUARE.FEET + RESIDENTIAL.UNITS +  #Building/Home Size/Units
+              TAX_CLASS + BUILDING.CLASS.CATEGORY + #Building/Home Features
+              YEAR.BUILT + #Year Built
+              SALE.YEAR, #Sale Year
+            data = AirHomeData)
+model5$coefficients = model5$coefficients[2:nvar]
+
+nvar = 100
+model6 = lm(LOG_SALE.PRICE ~ PERCENT.AIRBNB + #Short Term Rental Concentration
+              LOG_GROSS.SQUARE.FEET + RESIDENTIAL.UNITS +  #Building/Home Size/Units
+              TAX_CLASS + BUILDING.CLASS.CATEGORY + #Building/Home Features
+              YEAR.BUILT + #Year Built
+              SALE.YEAR + #Sale Year
+              NEIGHBORHOOD, #Neighborhood Fixed Effects
+            data = AirHomeData)
+model6$coefficients = model6$coefficients[2:nvar]
+```
+
+```{r, warning = FALSE}
+stargazer(model1, model2, model3, model4, model5, model6, title = "Home Sale Price versus Short Term Rental Concentration", type = "text",  out = "Home Sale Price versus Short Term Rental Concentration")
+
+```
+
+
+
+
+
