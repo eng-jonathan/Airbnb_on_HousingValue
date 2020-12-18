@@ -17,7 +17,7 @@ ___
 ### Methodology:
 Uses Mutli-linear regression, estimated by Ordinary Least Squares to estimate housing value.
 
-<img src = "Images/MultiRegression%20output.jpg" width = "950">
+<img src = "Images/MultiRegression%20output.jpg" width = "1050">
 
 ___
 ### Results
