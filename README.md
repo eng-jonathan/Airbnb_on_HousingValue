@@ -9,6 +9,8 @@ ___
 *NYC Open Data*: A free public data source published by NYC agencies
 
 *InsideAirbnb*: An independent and non-commercial toolset of Airbnb data
+
+The data is combined using cross sectional data between 2013-2015, including Airbnb Concentration, Neighborhood Fixed Effects, and other influential variables.
 ___
 ### Methodology:
 Uses Mutli-linear regression, estimated by Ordinary Least Squares to estimate housing value.
