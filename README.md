@@ -2,6 +2,11 @@
 
 # Is Airbnb Good for Housing Value?
 
+### Controversy
+Pros: The effect from the ability to generate additional revenue will increase home prices as the concentration of Airbnb's increase
+Cons: Due to Airbnb's simplicity and ability to generate income, it is viewed that Airbnbs often violate health and safety laws, leading ot unsafe homes, increase in traffic in quiet neighborhoods, and increase in people who do not care about the neighborhood during thier short-term visit
+___
+
 ### Overview
 This [Report](https://github.com/eng-jonathan/Airbnb_on_HousingValue/blob/main/Report/Airbnb_on_HousingValue.pdf) aims solve the controversy of encouraging Airbnb's in NYC.
 
