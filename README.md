@@ -5,7 +5,7 @@
 ### Controversy
 **Pros:** The ability to generate additional revenue will increase home prices and financial wellbeing of home owners as the concentration of Airbnbs increase
 
-**Cons:** Due to Airbnb's simplicity and ability to generate income, it is viewed that Airbnbs often violate health and safety laws, leading ot unsafe homes, increase in traffic in quiet neighborhoods, and increase in people who do not care about the neighborhood during thier short-term visit
+**Cons:** Due to Airbnb's simplicity and ability to generate income, it is viewed that Airbnbs often violate health and safety laws, leading to unsafe homes, increase in traffic in quiet neighborhoods, and increase in people who do not care about the neighborhood during their short-term visit
 ___
 
 ### Overview
@@ -28,7 +28,7 @@ Uses Multilinear regression, estimated by Ordinary Least Squares to estimate hou
 
 ___
 ### Results
-A 0.165 percentage-point increase in the concentration of short term rentals leads to a 5.049% increase in the housing sale price. 
+A 0.165 percentage-point increase in the concentration of short-term rentals leads to a 5.049% increase in the housing sale price. 
 
 New York City should first create and police regulations that protect the neighborhood and its people from inappropriate uses of Airbnb, then encourage Airbnb rentals rather than reduce them, as this will appreciate housing prices in the neighborhood.
 ___
