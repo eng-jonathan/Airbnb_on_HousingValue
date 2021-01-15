@@ -18,7 +18,7 @@ ___
 
 *InsideAirbnb*: An independent and non-commercial toolset of Airbnb data
 
-The data is combined using cross sectional data between 2013-2015, including Airbnb Concentration, Neighborhood Fixed Effects, and other influential variables.
+The data is combined using cross sectional data between 2013-2015, including Airbnb Concentration, Neighborhood Fixed Effects, and other influential variables. 
 ___
 ### Methodology:
 Uses Multilinear regression, estimated by Ordinary Least Squares to estimate housing value. 
