@@ -32,4 +32,3 @@ A 0.165 percentage-point increase in the concentration of short-term rentals lea
 
 New York City should first create and police regulations that protect the neighborhood and its people from inappropriate uses of Airbnb, then encourage Airbnb rentals rather than reduce them, as this will appreciate housing prices in the neighborhood.
 ___
-[Return to Top](#TOP)
