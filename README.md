@@ -11,7 +11,7 @@ ___
 ### Overview
 This [Report](https://github.com/eng-jonathan/Airbnb_on_HousingValue/blob/main/Report/Airbnb_on_HousingValue.pdf) aims resolve the controversy of encouraging Airbnb's in NYC.
 
-It's [Developed in ***R***](https://github.com/eng-jonathan/Airbnb_on_HousingValue/blob/main/Report/Airbnb_on_HousingValue.Rmd) and incorporates data modeling, linear/quadratic regression, and multivariate analysis regression
+It's [Developed in ***R***](https://github.com/eng-jonathan/Airbnb_on_HousingValue/blob/main/Report/Airbnb_on_HousingValue.Rmd) and incorporates data modeling, linear/quadratic regression, and multivariate analysis
 ___
 ### Data
 *NYC Open Data*: A free public data source published by NYC agencies
