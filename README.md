@@ -39,5 +39,7 @@ ___
 **✓** Airbnb Concentration causes the prices of homes to appreciate 
 
 **✗** Non-Locals may mistreat the neighborhood due to short-term stay 
+
 **✗** Airbnbs often violate health and safety laws
-* Solution: Policed Environmental Regulations for Airbnb Hosts and Customers 
+
+* Solution: Policed Regulations for Airbnb Hosts and Customers 
