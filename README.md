@@ -40,6 +40,6 @@ ___
 
 **✗** Non-Locals may mistreat the neighborhood due to short-term stay 
 
-**✗** Airbnbs often violate health and safety laws due to low barrier to entry
+**✗** Airbnb Hosts often violate health and safety laws due to its low barrier to entry
 
 * Solution: Policed Regulations for Airbnb Hosts and Customers 
