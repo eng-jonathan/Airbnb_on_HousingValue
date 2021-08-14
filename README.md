@@ -33,5 +33,6 @@ A 0.165 percentage-point increase in the concentration of short-term rentals lea
 New York City should first create and police regulations that protect the neighborhood and its people from inappropriate uses of Airbnb, then encourage Airbnb rentals rather than reduce them, as this will appreciate housing prices in the neighborhood.
 ___
 ### In Short
-☑ Airbnb's cause the prices of homes to appreciate 
-✖ Non-Locals may mistreat the neighborhood due to their short-term stay. Policed environmental regulations will solve this issue. 
+✓ Airbnb's cause the prices of homes to appreciate 
+
+✗ Non-Locals may mistreat the neighborhood due to their short-term stay. Policed environmental regulations will solve this issue. 
