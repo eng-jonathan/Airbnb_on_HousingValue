@@ -35,4 +35,5 @@ ___
 ### In Short
 **✓** Airbnb Concentration causes the prices of homes to appreciate 
 
-**✗** Non-Locals may mistreat the neighborhood due to their short-term stay. Policed environmental regulations will solve this issue. 
+**✗** Non-Locals may mistreat the neighborhood due to their short-term stay. 
+  * Solution: Policed environmental regulations 
