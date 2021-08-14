@@ -5,7 +5,7 @@
 ### Controversy
 **Pros:** The ability to generate additional revenue will increase home prices and financial wellbeing of homeowners as the concentration of Airbnbs increase
 
-**Cons:** Due to Airbnb's simplicity and ability to generate income, it is viewed that Airbnbs often violate health and safety laws, leading to unsafe homes, increase in traffic in quiet neighborhoods, and increase in people who do not care about the neighborhood during their short-term visit\
+**Cons:** Due to Airbnb's simplicity and ability to generate income, it is viewed that Airbnbs often violate health and safety laws, leading to unsafe homes, increase in traffic in quiet neighborhoods, and increase in people who do not care about the neighborhood during their short-term visit
 
 [Jump to Results](#Results) 
 ___
