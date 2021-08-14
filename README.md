@@ -23,8 +23,9 @@ ___
 The data is combined using cross sectional data between 2013-2015, including Airbnb Concentration, Neighborhood Fixed Effects, and other influential variables. 
 ___
 ### Methodology:
-Uses ***Linear Regression*** estimated by Ordinary Least Squares and ***Multivariate Analysis*** to estimate housing value. 
-(Note: *Year Build* and *Neighborhood Fixed Effects* are hidden from image)
+* ***Linear Regression*** estimated by Ordinary Least Squares
+* ***Multivariate Analysis*** to estimate housing value. 
+* (Note: *Year Build* and *Neighborhood Fixed Effects* are hidden from image)
 
 <img src = "Images/MultiRegression%20output.jpg" width = "1050">
 
