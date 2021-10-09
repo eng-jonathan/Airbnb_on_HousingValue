@@ -43,4 +43,4 @@ ___
 
 * **✗** Airbnb Hosts often violate health and safety laws due to its low barrier to entry
 
-Proposed Solution: Policed Regulations for Airbnb Hosts and Customers before further encouraging Airbnb usage.
+**Proposed Solution:** Policed Regulations for Airbnb Hosts and Customers before further encouraging Airbnb usage.
