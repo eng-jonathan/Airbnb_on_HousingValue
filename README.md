@@ -11,7 +11,7 @@
 ___
 
 ### Overview
-* This [Report](https://github.com/eng-jonathan/Airbnb_on_HousingValue/blob/main/Report/Airbnb_on_HousingValue.pdf) aims resolve the controversy of encouraging Airbnb's in NYC.
+* This [Report](https://github.com/eng-jonathan/Airbnb_on_HousingValue/blob/main/Report/Airbnb_on_HousingValue.pdf) analyzes the controversy of encouraging Airbnb in NYC.
 
 * It's [Developed in ***R***](https://github.com/eng-jonathan/Airbnb_on_HousingValue/blob/main/Report/Airbnb_on_HousingValue.Rmd) and incorporates data modeling, statistical analysis, and linear and quadratic regression
 ___
