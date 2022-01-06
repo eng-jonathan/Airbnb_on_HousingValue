@@ -11,9 +11,9 @@
 ___
 
 ### Overview
-* This [Report](https://github.com/eng-jonathan/Airbnb_on_HousingValue/blob/main/Report/Airbnb_on_HousingValue.pdf) analyzes the controversy of encouraging Airbnb in NYC.
+* This [Report](https://github.com/eng-jonathan/Airbnb_on_HousingValue/blob/main/Report/Airbnb_on_HousingValue.pdf) used Multivariate Statistical Analysis to evaluate Airbnb's effect on housing value.
 
-* It's [Developed in ***R***](https://github.com/eng-jonathan/Airbnb_on_HousingValue/blob/main/Report/Airbnb_on_HousingValue.Rmd) and incorporates data modeling, statistical analysis, and linear and quadratic regression
+* It's [Developed in ***R***](https://github.com/eng-jonathan/Airbnb_on_HousingValue/blob/main/Report/Airbnb_on_HousingValue.Rmd) using Dply and Stargazer for data manipulation, modeling, and analysis
 ___
 ### Data
 * *NYC Open Data*: A free public data source published by NYC agencies
